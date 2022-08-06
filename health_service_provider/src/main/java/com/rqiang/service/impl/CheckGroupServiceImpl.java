@@ -70,4 +70,23 @@ public class CheckGroupServiceImpl implements CheckGroupService {
     public List<Integer> findCheckItemIdsByCheckGroupId(Integer id) {
         return checkGroupDao.findCheckItemIdsByCheckGroupId(id);
     }
+
+
+
+    @Override
+    public void edit(CheckGroup checkGroup, Integer[] checkitemIds) {
+        deleteCheckGroupAndCheckItem(checkGroup.getId());
+        setCheckGroupAndCheckItem(checkGroup.getId(), checkitemIds);
+        checkGroupDao.edit(checkGroup);
+    }
+
+    @Override
+    public void deleteCheckGroupAndCheckItem(Integer id) {
+        checkGroupDao.deleteCheckGroupAndCheckItem(id);
+    }
+
+    @Override
+    public List<CheckGroup> findAll() {
+        return checkGroupDao.findAll();
+    }
 }

@@ -44,11 +44,11 @@ public class CheckGroupController {
     public Result findById(Integer id){
         try{
             CheckGroup item = checkGroupService.findById(id);
-            return new Result(true, MessageConstant.EDIT_CHECKGROUP_SUCCESS, item);
+            return new Result(true, MessageConstant.QUERY_CHECKGROUP_SUCCESS, item);
         }catch (Exception e){
             e.printStackTrace();
             //调用失败
-            return new Result(false, MessageConstant.EDIT_CHECKGROUP_FAIL);
+            return new Result(false, MessageConstant.QUERY_CHECKGROUP_FAIL);
         }
     }
 
@@ -64,4 +64,27 @@ public class CheckGroupController {
         }
     }
 
+    @RequestMapping("/edit")
+    public Result edit(@RequestBody CheckGroup checkGroup, Integer[] checkitemIds){
+        try{
+            checkGroupService.edit(checkGroup, checkitemIds);
+        }catch (Exception e){
+            e.printStackTrace();
+            //调用失败
+            return new Result(false, MessageConstant.EDIT_CHECKGROUP_FAIL);
+        }
+        return new Result(true, MessageConstant.EDIT_CHECKGROUP_SUCCESS);
+    }
+
+    @RequestMapping("/findAll")
+    public Result findAll(){
+        try{
+            List<CheckGroup> items = checkGroupService.findAll();
+            return new Result(true, MessageConstant.QUERY_CHECKGROUP_SUCCESS, items);
+        }catch (Exception e){
+            e.printStackTrace();
+            //调用失败
+            return new Result(false, MessageConstant.QUERY_CHECKGROUP_FAIL);
+        }
+    }
 }

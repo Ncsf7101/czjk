@@ -282,23 +282,21 @@
             methods: {
                 //编辑
                 handleEdit() {
-                    axios.post("/checkgroup/edit.do",this.formData).then((res) => {
-                        if(res.data.flag){
-                            //弹出成功提示信息
-                            this.$message({
-                                type:'success',
-                                message:res.data.message
-                            });
-                        }else{
-                            //执行失败
-                            this.$message.error(res.data.message);
-                        }
-                        console.log(res.data.flag);
-                    }).finally(() => {
-                        //不管成功还是失败，都调用分页查询方法
-                        this.findPage();
+                    //发送ajax请求，提交模型数据
+                    axios.post("/checkgroup/edit.do?checkitemIds="+this.checkitemIds,this.formData).
+                    then((res)=> {
                         //隐藏编辑窗口
                         this.dialogFormVisible4Edit = false;
+                        if(res.data.flag){
+                            this.$message({
+                                message: res.data.message,
+                                type: 'success'
+                            });
+                        }else{
+                            this.$message.error(res.data.message);
+                        }
+                    }).finally(()=> {
+                        this.findPage();
                     });
                 },
                 //添加

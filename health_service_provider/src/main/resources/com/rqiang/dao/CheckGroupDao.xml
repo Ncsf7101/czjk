@@ -19,6 +19,35 @@
         values
         (#{checkgroup_id}, #{checkitem_id})
     </insert>
+    <update id="edit" parameterType="com.rqiang.pojo.CheckGroup">
+        update t_checkgroup
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="helpCode != null">
+                helpCode = #{helpCode},
+            </if>
+            <if test="attention != null">
+                attention = #{attention},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="deleteCheckGroupAndCheckItem">
+        delete
+        from t_checkgroup_checkitem
+        where checkgroup_id = #{id};
+    </delete>
     <select id="selectByCondition" parameterType="string" resultType="com.rqiang.pojo.CheckGroup">
         select * from t_checkgroup
         <if test="value != null and value.length > 0">
@@ -32,5 +61,9 @@
     </select>
     <select id="findCheckItemIdsByCheckGroupId" parameterType="int" resultType="int">
         select checkitem_id from t_checkgroup_checkitem where checkgroup_id = #{id}
+    </select>
+    <select id="findAll" resultType="com.rqiang.pojo.CheckGroup">
+        select *
+        from t_checkgroup;
     </select>
 </mapper>
