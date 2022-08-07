@@ -65,4 +65,10 @@ public class QiniuTest {
             System.err.println(ex.response.toString());
         }
     }
+
+    @Test
+    public void test1(){
+        String str = "xxx.jpg";
+        System.out.println(str.substring(str.lastIndexOf(".")-1));
+    }
 }
