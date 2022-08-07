@@ -1,6 +1,0 @@
-com\rqiang\dao\CheckGroupDao.class
-com\rqiang\dao\CheckItemDao.class
-com\rqiang\dao\SetMealDao.class
-com\rqiang\service\impl\SetMealServiceImpl.class
-com\rqiang\service\impl\CheckItemServiceImpl.class
-com\rqiang\service\impl\CheckGroupServiceImpl.class
