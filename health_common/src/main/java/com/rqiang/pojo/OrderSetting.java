@@ -20,6 +20,12 @@ public class OrderSetting implements Serializable{
         this.number = number;
     }
 
+    public OrderSetting(Date orderDate, int number, int reservations) {
+        this.orderDate = orderDate;
+        this.number = number;
+        this.reservations = reservations;
+    }
+
     public Integer getId() {
         return id;
     }

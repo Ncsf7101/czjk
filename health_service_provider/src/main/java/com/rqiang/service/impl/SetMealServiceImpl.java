@@ -10,6 +10,7 @@ import com.rqiang.entity.QueryPageBean;
 import com.rqiang.pojo.CheckGroup;
 import com.rqiang.pojo.Setmeal;
 import com.rqiang.service.SetMealService;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import redis.clients.jedis.JedisPool;
@@ -56,6 +57,21 @@ public class SetMealServiceImpl implements SetMealService {
         return new PageResult(total, rows);
     }
 
+    @Override
+    public List<Setmeal> findAll() {
+        return setMealDao.findAll();
+    }
+
+    @Override
+    public Setmeal findById(Integer id) {
+        return setMealDao.findById(id);
+    }
+
+//    @Override
+//    public List<Integer> getSetmealAndCheckGroup(Integer id) {
+//        return setMealDao.getSetmealAndCheckGroup(id);
+//    }
+
     //绑定套餐和检查组的多对多关系
     private void setSetmealAndCheckGroup(Integer id, Integer[] checkgroupIds) {
         for (Integer checkgroupId : checkgroupIds) {
@@ -69,4 +85,5 @@ public class SetMealServiceImpl implements SetMealService {
     public void setPicRedis(String pic){
         jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_DB_RESOURCES,pic);
     }
+
 }

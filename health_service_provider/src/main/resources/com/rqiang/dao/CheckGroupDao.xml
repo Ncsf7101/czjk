@@ -2,7 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rqiang.dao.CheckGroupDao">
-
+    <resultMap id="baseResultMap" type="com.rqiang.pojo.CheckGroup">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="helpCode" property="helpCode"/>
+        <result column="sex" property="sex"/>
+        <result column="remark" property="remark"/>
+        <result column="attention" property="attention"/>
+    </resultMap>
+    <resultMap id="findByIdResultMap" type="com.rqiang.pojo.CheckGroup" extends="baseResultMap">
+        <collection property="checkItems"
+                    javaType="ArrayList"
+                    ofType="com.rqiang.pojo.CheckItem"
+                    column="id"
+                    select="com.rqiang.dao.CheckItemDao.findCheckItemById"/>
+    </resultMap>
 
     <insert id="add" parameterType="com.rqiang.pojo.CheckGroup">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
@@ -65,5 +80,15 @@
     <select id="findAll" resultType="com.rqiang.pojo.CheckGroup">
         select *
         from t_checkgroup;
+    </select>
+
+    <select id="findCheckGroupById" parameterType="Integer" resultMap="findByIdResultMap">
+        select *
+        from t_checkgroup
+        where id in (
+            select checkgroup_id
+            from t_setmeal_checkgroup
+            where setmeal_id = #{id}
+        );
     </select>
 </mapper>

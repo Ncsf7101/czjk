@@ -2,6 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.rqiang.dao.SetMealDao">
+    <resultMap id="baseResultMap" type="com.rqiang.pojo.Setmeal">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="helpCode" property="helpCode"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="price" property="price"/>
+        <result column="remark" property="remark"/>
+        <result column="attention" property="attention"/>
+        <result column="img" property="img"/>
+    </resultMap>
+    <resultMap id="findByIdResultMap" type="com.rqiang.pojo.Setmeal" extends="baseResultMap">
+        <!--多对多映射-->
+        <collection
+                property="checkGroups"
+                javaType="ArrayList"
+                ofType="com.rqiang.pojo.CheckGroup"
+                column="id"
+                select="com.rqiang.dao.CheckGroupDao.findCheckGroupById">
+        </collection>
+    </resultMap>
 
     <insert id="add" parameterType="com.rqiang.pojo.Setmeal">
             <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
@@ -19,10 +41,28 @@
         values
             (#{setmeal_id},#{checkgroup_id})
     </insert>
+    <!--    <select id="getSetmealAndCheckGroup" resultType="java.lang.Integer">-->
+    <!--        select checkgroup_id-->
+    <!--        from t_setmeal_checkgroup-->
+    <!--        where setmeal_id = #{id};-->
+    <!--    </select>-->
+
+
     <select id="selectByCondition" resultType="com.rqiang.pojo.Setmeal">
         select * from t_setmeal
         <if test="value != null and value.length > 0">
             where code = #{value} or name =  #{value} or helpCode =  #{value}
         </if>
+    </select>
+    <select id="findAll" resultType="com.rqiang.pojo.Setmeal">
+        select *
+        from t_setmeal;
+    </select>
+
+
+    <select id="findById" parameterType="Integer" resultMap="findByIdResultMap">
+        select *
+        from t_setmeal
+        where id = #{id};
     </select>
 </mapper>

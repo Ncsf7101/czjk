@@ -62,4 +62,12 @@
         select *
         from t_checkItem;
     </select>
+    <select id="findCheckItemById" parameterType="int" resultType="com.rqiang.pojo.CheckItem">
+        select *
+        from t_checkItem
+        where id in (
+            select checkitem_id from t_checkgroup_checkitem where checkgroup_id=#{id}
+            );
+    </select>
+
 </mapper>

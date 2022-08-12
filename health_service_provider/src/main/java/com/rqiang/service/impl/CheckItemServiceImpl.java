@@ -1,6 +1,5 @@
 package com.rqiang.service.impl;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.rqiang.dao.CheckItemDao;
 import com.rqiang.entity.PageResult;
@@ -12,7 +11,6 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

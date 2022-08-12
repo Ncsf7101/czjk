@@ -11,6 +11,10 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class QiniuTest {
     @Test
     public void test() throws QiniuException {
@@ -67,8 +71,13 @@ public class QiniuTest {
     }
 
     @Test
-    public void test1(){
-        String str = "xxx.jpg";
-        System.out.println(str.substring(str.lastIndexOf(".")-1));
+    public void test1() throws ParseException {
+        String str = "1997-12-14";
+//        String str = "2019-3-4 18:07:20";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        ;//Mon Mar 04 18:07:20 CST 2019
+        System.out.println(sdf.parse(str));
+//        System.out.println(new Date(str));
+
     }
 }

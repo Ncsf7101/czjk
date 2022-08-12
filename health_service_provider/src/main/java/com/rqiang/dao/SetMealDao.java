@@ -1,7 +1,6 @@
 package com.rqiang.dao;
 
 import com.github.pagehelper.Page;
-import com.rqiang.pojo.CheckGroup;
 import com.rqiang.pojo.Setmeal;
 
 import java.util.List;
@@ -14,4 +13,10 @@ public interface SetMealDao {
     void setSetmealAndCheckGroup(Map<String, Integer> map);
 
     Page<Setmeal> selectByCondition(String queryString);
+
+    List<Setmeal> findAll();
+
+    Setmeal findById(Integer id);
+
+    //List<Integer> getSetmealAndCheckGroup(Integer );
 }
